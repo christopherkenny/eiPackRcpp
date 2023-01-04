@@ -14,3 +14,5 @@ LinkingTo:
     Rcpp
 Imports: 
     Rcpp
+URL: https://github.com/christopherkenny/eiPackRcpp
+BugReports: https://github.com/christopherkenny/eiPackRcpp/issues
