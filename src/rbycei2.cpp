@@ -33,7 +33,8 @@ Rcpp::List rbycei_fcn2(NumericMatrix alphamatrix,
   Rcpp::List output_list;
   SEXP alpha_dim, beta_dim, TT_dim, RR_dim;
   double aprop, acurr, asumm1, lbm_rc, aprop_ll, acurr_ll;
-  double bprop, bprop_ref, bcurr, bcurr_ref, tt_ci, tt_Ci, bprop_x, bprop_ref_x, bcurr_x, bcurr_ref_x, ulim, bcurr_ll, bprop_ll;
+  double bprop, bprop_ref, bcurr, bcurr_ref, tt_ci, tt_Ci,
+  bprop_x, bprop_ref_x, bcurr_x, bcurr_ref_x, ulim, bcurr_ll, bprop_ll;
 
   int iters = Burnin + Sample * Thin;
 
@@ -57,13 +58,11 @@ Rcpp::List rbycei_fcn2(NumericMatrix alphamatrix,
   NumericMatrix a_draws(Sample, NG*NP);
   NumericMatrix b_draws;
 
-
   if(Savebeta == 0){
     b_draws = NumericMatrix(Sample, NG*NP*Precincts);
   }
 
   GetRNGstate();
-
 
   for(kk = 0; kk < iters; ++kk){
     for(ii = 0; ii < Precincts; ++ii){
@@ -90,8 +89,10 @@ Rcpp::List rbycei_fcn2(NumericMatrix alphamatrix,
             bprop_x = bcurr_x - bcurr*XX[rr + NG*ii] + bprop*XX[rr + NG*ii];
             bprop_ref_x =  bcurr_ref_x - bcurr_ref*XX[rr + NG*ii] + bprop_ref*XX[rr + NG*ii];
 
-            bprop_ll = beta_ll(bprop, bprop_ref, alphamatrix[rr + NG*cc], alphamatrix[rr + NG*(NP-1)],tt_ci, tt_Ci, bprop_x, bprop_ref_x);
-            bcurr_ll = beta_ll(bcurr, bcurr_ref,  alphamatrix[rr + NG*cc], alphamatrix[rr + NG*(NP-1)], tt_ci, tt_Ci, bcurr_x, bcurr_ref_x);
+            bprop_ll = beta_ll(bprop, bprop_ref, alphamatrix[rr + NG*cc], alphamatrix[rr + NG*(NP-1)],
+                               tt_ci, tt_Ci, bprop_x, bprop_ref_x);
+            bcurr_ll = beta_ll(bcurr, bcurr_ref,  alphamatrix[rr + NG*cc], alphamatrix[rr + NG*(NP-1)],
+                               tt_ci, tt_Ci, bcurr_x, bcurr_ref_x);
 
             /* Rprintf("%f %f %f %f %f\n", bprop, bprop_ref, bprop_x, bprop_ref_x, bprop_ll - bcurr_ll);
              */
